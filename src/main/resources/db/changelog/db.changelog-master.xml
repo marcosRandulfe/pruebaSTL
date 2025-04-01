@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2" author="MRG">
+        <sql>
+            CREATE TABLE IF NOT EXISTS EDIFICIO (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nombre VARCHAR(50) NOT NULL,
+                direccion VARCHAR(100) NOT NULL,
+                numero_plantas INT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS planta (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nombre VARCHAR(50) NOT NULL,
+                piso INT NOT NULL,
+                edificio_id INT NOT NULL,
+                FOREIGN KEY (edificio_id) REFERENCES EDIFICIO(id)
+            );
+            CREATE TABLE IF NOT EXISTS habitacion (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                categoria VARCHAR(20) NOT NULL,
+                capacidad INT NOT NULL,
+                planta_id INT NOT NULL,
+                FOREIGN KEY (planta_id) REFERENCES planta(id)
+            );
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
